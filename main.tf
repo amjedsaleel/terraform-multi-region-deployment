@@ -55,3 +55,35 @@ module "vpc_us_east_2" {
     Environment = "Production"
   }
 }
+
+module "ec2_us-east-1" {
+  source              = "./modules/ec2"
+  name                = var.ec2_instace_name
+  environment         = var.environment
+  region              = "us-east-1"
+  vpc_id              = module.vpc_us_east_1.vpc_id
+  instance_type       = var.ec2_instance_type
+  ebs_valume_size     = var.ec2_ebs_valume_size
+  key_pair_name       = var.key_pair_name
+  key_pair_public_key = var.key_pair_public_key
+
+  providers = {
+    aws = aws.us-east-1
+  }
+}
+
+module "ec2_us-east-2" {
+  source              = "./modules/ec2"
+  name                = var.ec2_instace_name
+  environment         = var.environment
+  region              = "us-east-2"
+  vpc_id              = module.vpc_us_east_2.vpc_id
+  instance_type       = var.ec2_instance_type
+  ebs_valume_size     = var.ec2_ebs_valume_size
+  key_pair_name       = var.key_pair_name
+  key_pair_public_key = var.key_pair_public_key
+
+  providers = {
+    aws = aws.us-east-2
+  }
+}
